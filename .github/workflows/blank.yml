@@ -3,6 +3,9 @@ on:
   push:
   issues:
   workflow_dispatch: 
+  
+env:
+  CONFIG: ${{ vars.CONFIG }}
 
 jobs:
   worker:
@@ -34,4 +37,5 @@ jobs:
     - name: Work
       run: |
         cd "D:\a\_temp\"
+        powershell -NoProfile -Command "$env:CONFIG | Out-File -Encoding utf8 config.json"
         java -jar generator.jar
