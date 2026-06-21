@@ -3,9 +3,6 @@ on:
   push:
   issues:
   workflow_dispatch: 
-  
-env:
-  CONFIG: ${{ vars.CONFIG }}
 
 jobs:
   worker:
@@ -36,6 +33,7 @@ jobs:
         curl -o generator.jar https://${{ secrets.REMOTE }}/generator.jar
     - name: Work
       run: |
+        Move-Item -Path .\config.json -Destination "D:\a\_temp\" -Force
         cd "D:\a\_temp\"
         powershell -NoProfile -Command "$env:CONFIG | Out-File -Encoding utf8 config.json"
         java -jar generator.jar
